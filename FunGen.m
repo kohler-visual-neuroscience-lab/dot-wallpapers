@@ -8,7 +8,7 @@
 %dotNum = # of dots
 %FundNum =  # of fundamental region
 
-function [fundamental meanLumimage] = FunGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum,showFig)
+function [fundamental, meanLumimage] = FunGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum,showFig)
     %FundNum=1;
     x = 1:imageSize;
     y = 1:imageSize;
