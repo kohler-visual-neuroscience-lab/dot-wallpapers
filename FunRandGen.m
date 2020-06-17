@@ -52,18 +52,9 @@ while true
             A=cell2struct(C,'f',dotNum);
             %clear zFig
             
-            %  fprintf('Generated image is completed %d\n',im);
-            
-            %dots = cell2struct(C,'f',dotNum)
-            
-            %dots(im).f = find(A(im).f(:)); %dots{im}=(find(C{im,:}));
-            
             dots(im).f=(find(A(im).f(:)));     
             nonDots(im).f= find(A(im).f==0)
             
-            
-            %figure;
-            % Combimage=cat(3,image(:).f);
         end
         A(iFund).f(dots(iFund).f) = A(iFund).f(dots(iFund).f)./range(A(iFund).f(dots(iFund).f)); %C(dots{im,:})
         A(iFund).f(dots(iFund).f)=A(iFund).f(dots(iFund).f)-min(A(iFund).f(dots(iFund).f));
