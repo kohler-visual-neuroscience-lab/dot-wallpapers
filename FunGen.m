@@ -8,14 +8,20 @@
 %dotNum = # of dots
 %FundNum =  # of fundamental region
 
-function fundamental = FunGen(imageSize,minRad,maxRad,minCol,dotNum,FundNum,showFig)
-%FundNum=1;
-x = 1:imageSize;
-y = 1:imageSize;
-[xM,yM] = meshgrid(x,y);
+function [fundamental meanLumimage] = FunGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum,showFig)
+    %FundNum=1;
+    x = 1:imageSize;
+    y = 1:imageSize;
+    [xM,yM] = meshgrid(x,y);
 
-zFig = struct;
-zFig1 = struct;
+    zFig = struct;
+    zFig1 = struct;
+    
+    if meanLum~=128;
+        meanLum=meanLum;
+    else
+    meanLum = 128;
+    end
 
 DotCol = zeros(1,dotNum);
 while true
@@ -44,15 +50,25 @@ while true
         end
         
         dots=(find(zFig(iFund).Fund));
+        nonDots= find(zFig(iFund).Fund==0)
         zFig(iFund).Fund(dots) = zFig(iFund).Fund(dots)./range(zFig(iFund).Fund(dots(:)));
-        zFig(iFund).Fund(dots)=zFig(iFund).Fund(dots)-min(zFig(iFund).Fund(dots));
-        zFig(iFund).Fund(dots)=zFig(iFund).Fund(dots)-mean(zFig(iFund).Fund(dots));
-        zFig(iFund).Fund(dots)=zFig(iFund).Fund(dots)/max(zFig(iFund).Fund(dots));
-        zFig(iFund).Fund(dots)=zFig(iFund).Fund(dots)*125+127;
+        zFig(iFund).Fund(dots) = zFig(iFund).Fund(dots)-min(zFig(iFund).Fund(dots));
+        zFig(iFund).Fund(dots) = zFig(iFund).Fund(dots)-mean(zFig(iFund).Fund(dots));
+        zFig(iFund).Fund(dots) = zFig(iFund).Fund(dots)/max(zFig(iFund).Fund(dots));
+        zFig(iFund).Fund(dots) = zFig(iFund).Fund(dots)*125+127;
+        zFig(iFund).Fund(nonDots)= zFig(iFund).Fund(nonDots);
+
         image(iFund).Fund = uint8(round(zFig(iFund).Fund));
-        meanImage(iFund).Fund = mean(image(iFund).Fund(dots(:)));
-        % meanImage(iFund)
-        
+        meanImagedots(iFund).Fund = mean(image(iFund).Fund(dots(:)));
+        if meanLum==128;
+             zFig(iFund).Fund(nonDots)= meanLum;
+             image(iFund).Fund = uint8(round(zFig(iFund).Fund));
+        else
+            zFig(iFund).Fund(nonDots)= meanImagedots(iFund).Fund; %zFig(iFund).Fund(nonDots)
+            image(iFund).Fund = uint8(round(zFig(iFund).Fund));
+        end
+        meanImage(iFund).Fund = mean(image(iFund).Fund(:));
+
         if showFig ==1
             figure(1000+iFund) %this plots one fundamental region
             imshow(image(iFund).Fund)
@@ -75,5 +91,5 @@ while true
 end
 fundamental=image;
 %return fundamental
-meanImage(iFund)
+meanLumimage=meanImage;
 end
