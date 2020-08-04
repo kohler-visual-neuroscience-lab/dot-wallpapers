@@ -10,7 +10,7 @@ TileNum=10
 TileFund = 2
 numRepRows= 5
 numRepCol=5
-meanLum= 100
+meanLum= 128
 
 [fundamental, meanLumimage] = FunGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum,showFig)
 [PMM P2 P1 P4] = TileGen(fundamental,TileNum,TileFund,showFig)
