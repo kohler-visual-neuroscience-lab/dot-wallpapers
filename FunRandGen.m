@@ -1,4 +1,4 @@
-function [fundRand, meanLumimage] = FunRandGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum)
+function [fundRand, meanLumimage, meanLumdots, max_val, min_val, mean_val] = FunRandGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum)
 x = 1:imageSize;
 y = 1:imageSize;
 [xM,yM] = meshgrid(x,y);
@@ -79,11 +79,13 @@ while true
         
         figure(1000+iFund) %this plots one fundamental region
         imshow(image(iFund).Fund)
-        
+    max_val(iFund) = max(image(iFund).Fund(:));
+    min_val(iFund) = min(image(iFund).Fund(:));
+    mean_val(iFund) = mean(image(iFund).Fund(:));   
     end
     herhangi = true;
     for k= 1:FundNum
-        herhangi=herhangi & (abs(meanImage(k).Fund-128) < 10);
+        herhangi=herhangi & (abs(meanImage(k).Fund-128) < 10) & min_val(:,k)==0;
         
     end
     if herhangi
@@ -98,6 +100,10 @@ fundRand=image;
 %return fundamental
 meanImage(iFund);
 meanLumimage=meanImage;
+meanLumdots=meanImagedots;
+max_val=max_val;
+min_val=min_val;
+mean_val=mean_val;
 end
 
 
