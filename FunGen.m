@@ -8,7 +8,7 @@
 %dotNum = # of dots
 %FundNum =  # of fundamental region
 
-function [fundamental, meanLumimage] = FunGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum,showFig)
+function [fundamental, meanLumimage, meanLumdots, max_val, min_val, mean_val] = FunGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum,showFig)
     %FundNum=1;
     x = 1:imageSize;
     y = 1:imageSize;
@@ -73,11 +73,14 @@ while true
             figure(1000+iFund) %this plots one fundamental region
             imshow(image(iFund).Fund)
         else
-        end
+        end   
+    max_val(iFund) = max(image(iFund).Fund(:));
+    min_val(iFund) = min(image(iFund).Fund(:));
+    mean_val(iFund) = mean(image(iFund).Fund(:));
     end
     herhangi = true;
     for k= 1:FundNum
-        herhangi=herhangi & (abs(meanImage(k).Fund-128) < 1);
+        herhangi=herhangi & (abs(meanImage(k).Fund-128) < 1) & min_val(:,k)==0;
         
     end
     if herhangi
@@ -92,4 +95,8 @@ end
 fundamental=image;
 %return fundamental
 meanLumimage=meanImage;
+meanLumdots=meanImagedots;
+max_val = max_val;
+min_val = min_val;
+mean_val = mean_val;
 end
