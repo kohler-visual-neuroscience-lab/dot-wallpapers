@@ -85,7 +85,7 @@ while true
     end
     herhangi = true;
     for k= 1:FundNum
-        herhangi=herhangi & (abs(meanImage(k).Fund-128) < 10) & min_val(:,k)==0 & max_val(:,k)==252;
+        herhangi=herhangi & (abs(meanImage(k).Fund-128) < 10) & min_val(:,k)==0 & max_val(:,k)==252 & (abs(meanImagedots(k).Fund-128) < 1);
         
     end
     if herhangi
