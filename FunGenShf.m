@@ -46,7 +46,7 @@ while true
                     flgAccpet = 1;
                 end
             end
-\            zFig(iFund).Fund = zFig(iFund).Fund+ tempDotCol*tempZDot;
+            zFig(iFund).Fund = zFig(iFund).Fund+ tempDotCol*tempZDot;
         end
         else 
        for iDot=1:dotNum

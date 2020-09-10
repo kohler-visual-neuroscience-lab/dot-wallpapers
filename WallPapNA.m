@@ -4,7 +4,7 @@ minRad= 3
 maxRad= 8
 minCol= 0.1
 dotNum=25
-FundNum=5
+FundNum=10
 showFig= 1
 TileNum=10
 TileFund = 2
@@ -12,8 +12,8 @@ numRepRows= 5
 numRepCol=5
 meanLum= 128
 
-[fundamental, meanLumimage] = FunGen(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum,showFig)
-[PMM P2 P1 P4] = TileGen(fundamental,TileNum,TileFund,showFig)
+[fundamental, meanLumimage] = FunGenShf(imageSize,minRad,maxRad,minCol,dotNum,meanLum,FundNum,showFig)
+[PMM] = TileGen(fundamental,TileNum,TileFund,showFig)
 
 
 [PatternPMM] = WallPatternGen(PMM,numRepRows,numRepCol,showFig)
